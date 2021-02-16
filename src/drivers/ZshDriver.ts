@@ -9,7 +9,7 @@ import type { ShellDriver } from '../types';
  *
  * Background: zsh supports 3 different completion systems:
  * - `bashcompinit` (https://stackoverflow.com/questions/3249432/can-a-bash-tab-completion-script-be-used-in-zsh) - the bash completion system - not that powerful and
- * doesn't support descriptions at all
+ * doesn't support descriptions without workarounds that aren't supported by zsh
  * - `compctl` (http://zsh.sourceforge.net/Doc/Release/Completion-Using-compctl.html) - the "old" completion system - powerful but doesn't support dynamic descriptions
  * - `compsys` (http://zsh.sourceforge.net/Doc/Release/Completion-System.html) - the "new" completion system - very powerful but very comprehensive and not so easy to
  * understand, supports dynamic descriptions
@@ -62,7 +62,7 @@ const ZshDriver: ShellDriver = {
     completionResults
       // "possible completions with their descriptions in the form ‘completion:description’"
       .map((result) =>
-        typeof result.description !== 'undefined'
+        typeof result.description === 'string'
           ? `${result.completionText}:${result.description}`
           : result.completionText,
       )
