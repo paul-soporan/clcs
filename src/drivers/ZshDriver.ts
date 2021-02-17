@@ -31,8 +31,8 @@ const ZshDriver: ShellDriver = {
   // http://zsh.sourceforge.net/Guide/zshguide02.html#l9
   getShellConfigurationFile: () => path.join(homedir(), '.zshrc'),
 
-  getCompletionBlock: ({ binaryName, getCompletionProviderCommand }) =>
-    `. <(${binaryName} ${getCompletionProviderCommand} ${ZshDriver.shellName})`,
+  getCompletionBlock: ({ getCompletionProviderCommand }) =>
+    `. <(${getCompletionProviderCommand} ${ZshDriver.shellName})`,
 
   // Completion system documentation: http://zsh.sourceforge.net/Doc/Release/Completion-System.html
   //
@@ -46,7 +46,7 @@ const ZshDriver: ShellDriver = {
       local results=(
         # split by newline
         \${(@f)"$( \\
-          ${binaryName} ${requestCompletionCommand} ${ZshDriver.shellName} -- "$words" "$CURSOR" "\${words[$CURRENT]}" 2>/dev/null \\
+          ${requestCompletionCommand} ${ZshDriver.shellName} -- "$words" "$CURSOR" "\${words[$CURRENT]}" 2>/dev/null \\
         )"}
       )
 

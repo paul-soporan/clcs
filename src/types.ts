@@ -73,13 +73,8 @@ export type CompletionFunction = (
  */
 export interface GetCompletionBlockOptions {
   /**
-   * The name of the binary that will be executed to get the completion provider.
-   */
-  binaryName: string;
-
-  /**
    * The command that will be executed to get the completion provider.
-   * It must not include the `binaryName`.
+   * It doesn't necessarily have to call the binary the completion is registered for.
    */
   getCompletionProviderCommand: string;
 }
@@ -89,15 +84,13 @@ export interface GetCompletionBlockOptions {
  */
 export interface GetCompletionProviderOptions {
   /**
-   * The name of the binary:
-   * - that completion should be registered for
-   * - that will be executed to request completion
+   * The name of the binary that completion should be registered for.
    */
   binaryName: string;
 
   /**
    * The command that will be executed to request completion.
-   * It must not include the `binaryName`.
+   * It doesn't necessarily have to call the binary the completion is registered for.
    */
   requestCompletionCommand: string;
 }

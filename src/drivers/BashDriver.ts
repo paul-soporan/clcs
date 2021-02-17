@@ -19,8 +19,8 @@ const BashDriver: ShellDriver = {
   // https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html
   getShellConfigurationFile: () => path.join(homedir(), '.bashrc'),
 
-  getCompletionBlock: ({ binaryName, getCompletionProviderCommand }) =>
-    `. <(${binaryName} ${getCompletionProviderCommand} ${BashDriver.shellName})`,
+  getCompletionBlock: ({ getCompletionProviderCommand }) =>
+    `. <(${getCompletionProviderCommand} ${BashDriver.shellName})`,
 
   // Completion system documentation: https://www.gnu.org/software/bash/manual/html_node/Programmable-Completion.html
   //
@@ -38,7 +38,7 @@ const BashDriver: ShellDriver = {
         $(
           # select completions that match the original word
           compgen \\
-            -W "$(${binaryName} ${requestCompletionCommand} ${BashDriver.shellName} -- "$COMP_LINE" "$COMP_POINT" "\${COMP_WORDS[$COMP_CWORD]}" 2>/dev/null)" \\
+            -W "$(${requestCompletionCommand} ${BashDriver.shellName} -- "$COMP_LINE" "$COMP_POINT" "\${COMP_WORDS[$COMP_CWORD]}" 2>/dev/null)" \\
             -- "\${COMP_WORDS[$COMP_CWORD]}"
         )
       )
