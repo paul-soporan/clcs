@@ -1,4 +1,5 @@
 type Awaitable<T> = T | Promise<T>;
+type SingleOrArray<T> = T | T[];
 
 /**
  * A raw completion request sent by the shells.
@@ -11,7 +12,7 @@ export interface ShellCompletionRequest {
 }
 
 /**
- * A detailed completion request forwarded to the CLI developer.
+ * A completion request forwarded to the CLI developer.
  */
 export interface CompletionRequest {
   input: string[];
@@ -59,14 +60,24 @@ export interface RichCompletionResult {
 export type CompletionResult = string | RichCompletionResult;
 
 /**
+ * `CompletionResult`s are returned by `CompletionFunction`s.
+ *
+ * They can be wrapped in a promise.
+ *
+ * They can be a single `CompletionResult` or an array of them.
+ */
+export type CompletionResults = Awaitable<SingleOrArray<CompletionResult>>;
+
+/**
+ * A function that returns `CompletionResult`s for a `CompletionRequest`.
+ */
+export type CompletionFunction = (request: CompletionRequest) => CompletionResults;
+
+/**
  * A normalized completion result that is sent to the shells.
  */
 export type ShellCompletionResult = RichCompletionResult &
   Required<Pick<RichCompletionResult, 'listItemText'>>;
-
-export type CompletionFunction = (
-  request: CompletionRequest,
-) => Awaitable<CompletionResult | CompletionResult[]>;
 
 /**
  * The options of the `getCompletionBlock` function.
