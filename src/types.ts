@@ -8,7 +8,6 @@ type SingleOrArray<T> = T | T[];
 export interface ShellCompletionRequest {
   input: string;
   cursorPosition: string;
-  wordToComplete: string;
 }
 
 /**
@@ -17,7 +16,6 @@ export interface ShellCompletionRequest {
 export interface CompletionRequest {
   input: string[];
   cursorPosition: number;
-  wordToComplete: string;
 }
 
 /**

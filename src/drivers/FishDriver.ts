@@ -30,8 +30,6 @@ const FishDriver: ShellDriver = {
         (commandline -pb) \\
         # length of command line buffer, cut at cursor
         (string length (commandline -pc)) \\
-        # current token
-        (commandline -pt) \\
         2>/dev/null \\
       )' \\
       --keep-order \\

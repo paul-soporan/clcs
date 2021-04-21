@@ -38,7 +38,7 @@ const PowerShellDriver: ShellDriver = {
   getCompletionProvider: ({ binaryName, requestCompletionCommand }) => `
     Register-ArgumentCompleter -Native -CommandName ${binaryName} -ScriptBlock {
       param($wordToComplete, $commandAst, $cursorPosition)
-        $results = ${requestCompletionCommand} ${PowerShellDriver.shellName} "--" "$commandAst" "$cursorPosition" \`"$wordToComplete\`" | ConvertFrom-Json
+        $results = ${requestCompletionCommand} ${PowerShellDriver.shellName} "--" "$commandAst" "$cursorPosition" | ConvertFrom-Json
         $results |
           # select completions that match the original word
           ? { $_.CompletionText -like "$wordToComplete*" } |

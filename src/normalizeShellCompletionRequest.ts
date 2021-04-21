@@ -25,7 +25,6 @@ export default function normalizeShellCompletionRequest(
 
   return {
     input,
-    wordToComplete: shellCompletionRequest.wordToComplete,
     cursorPosition: cursorPosition - (binaryName.length + 1),
   };
 }

@@ -39,14 +39,13 @@ const ZshDriver: ShellDriver = {
   // Variables used:
   // - $words is an array corresponding to the words on the command line
   // - $CURSOR is the index of the cursor into the command line buffer
-  // - $CURRENT is the index into $words of the current word
   getCompletionProvider: ({ binaryName, requestCompletionCommand }) => `
     _${binaryName}() {
       # "The array [...] contains the possible completions [...]"
       local results=(
         # split by newline
         \${(@f)"$( \\
-          ${requestCompletionCommand} ${ZshDriver.shellName} -- "$words" "$CURSOR" "\${words[$CURRENT]}" 2>/dev/null \\
+          ${requestCompletionCommand} ${ZshDriver.shellName} -- "$words" "$CURSOR" 2>/dev/null \\
         )"}
       )
 

@@ -38,7 +38,7 @@ const BashDriver: ShellDriver = {
         $(
           # select completions that match the original word
           compgen \\
-            -W "$(${requestCompletionCommand} ${BashDriver.shellName} -- "$COMP_LINE" "$COMP_POINT" "\${COMP_WORDS[$COMP_CWORD]}" 2>/dev/null)" \\
+            -W "$(${requestCompletionCommand} ${BashDriver.shellName} -- "$COMP_LINE" "$COMP_POINT" 2>/dev/null)" \\
             -- "\${COMP_WORDS[$COMP_CWORD]}"
         )
       )
