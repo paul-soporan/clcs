@@ -50,8 +50,9 @@ const ZshDriver: ShellDriver = {
         )"}
       )
 
+      # "Hence it is possible for the completion group to be unsorted by giving the option ‘-V’"
       # http://zsh.sourceforge.net/Doc/Release/Completion-System.html#Completion-Functions
-      _describe 'command' results
+      _describe -V 'command' results
     }
 
     # http://zsh.sourceforge.net/Doc/Release/Completion-System.html#Functions-4
