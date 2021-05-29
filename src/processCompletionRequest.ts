@@ -26,13 +26,26 @@ export default async function processCompletionRequest(
     results = [results];
   }
 
-  const richResults = results.map((result) => {
+  const richResultHashes = new Set<string>();
+  const richResults = [];
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const result of results) {
     const richResult = typeof result === 'string' ? { completionText: result } : result;
-    return {
+    const normalizedRichResult = {
       ...richResult,
       listItemText: richResult.listItemText ?? richResult.completionText,
     };
-  });
+
+    const hash = JSON.stringify(normalizedRichResult);
+    if (richResultHashes.has(hash)) {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    richResults.push(normalizedRichResult);
+    richResultHashes.add(hash);
+  }
 
   const driver = getDriver(shellName);
 
